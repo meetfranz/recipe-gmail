@@ -7,6 +7,6 @@
   "author": "Stefan Malzner <stefan@adlk.io>",
   "license": "MIT",
   "config": {
-    "serviceURL": "https://mail.google.com"
+    "serviceURL": "https://mail.google.com/mail/?ibxr=0"
   }
 }
