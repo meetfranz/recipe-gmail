@@ -18,8 +18,13 @@ module.exports = (Franz) => {
       }
 
       // 1st best
-      if (document.getElementsByClassName('J-Ke n0')[0].getAttribute('title') != null) {
-        count = parseInt(document.getElementsByClassName('J-Ke n0')[0].getAttribute('title').replace(/[^0-9.]/g, ''), 10);
+      let title = document.getElementsByClassName('J-Ke n0')[0].getAttribute('title');
+      if (title != null) {
+        if (title.indexOf(':') >= 0){
+          count = parseInt(document.getElementsByClassName('J-Ke n0')[0].getAttribute('title').match(/([0-9]+)\)/)[1], 10);
+        } else {
+          count = parseInt(document.getElementsByClassName('J-Ke n0')[0].getAttribute('title').replace(/[^0-9.]/g, ''), 10);
+        }
       }
     }
 
