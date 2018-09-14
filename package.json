@@ -1,12 +1,12 @@
 {
-  "id": "gmail",
-  "name": "Gmail",
+  "id": "gmx",
+  "name": "GMX",
   "version": "1.0.0",
-  "description": "Gmail",
+  "description": "GMX web mail",
   "main": "index.js",
-  "author": "Stefan Malzner <stefan@adlk.io>",
+  "author": "Oliver Gramberg <oliver.gramberg@gmx.de>",
   "license": "MIT",
   "config": {
-    "serviceURL": "https://mail.google.com"
+    "serviceURL": "https://gmx.net"
   }
 }
