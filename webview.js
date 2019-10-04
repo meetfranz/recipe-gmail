@@ -1,3 +1,5 @@
+import path from 'path';
+
 module.exports = (Franz) => {
   const getMessages = function getMessages() {
     let count = 0;
@@ -18,6 +20,7 @@ module.exports = (Franz) => {
     Franz.setBadge(count);
   };
 
+  Franz.injectCSS(path.join(__dirname, 'service.css'));
   // check for new messages every second and update Franz badge
   Franz.loop(getMessages);
 };
