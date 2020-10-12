@@ -10,7 +10,6 @@ module.exports = (Franz, config) => {
       if (window.location.href.match(/https:\/\/www.google.com\/intl\/(.*)\/gmail\/about\//)) {
         session.flushStorageData();
         session.clearStorageData();
-        console.log('Franz', config);
 
         window.location.href = config.url;
       }
