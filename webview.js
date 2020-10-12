@@ -1,6 +1,24 @@
+import { remote } from 'electron';
 import path from 'path';
 
-module.exports = (Franz) => {
+const webContents = remote.getCurrentWebContents();
+const { session } = webContents;
+
+module.exports = (Franz, config) => {
+  try {
+    (async () => {
+      if (window.location.href.match(/https:\/\/www.google.com\/intl\/(.*)\/gmail\/about\//)) {
+        session.flushStorageData();
+        session.clearStorageData();
+        console.log('Franz', config);
+
+        window.location.href = config.url;
+      }
+    })();
+  } catch (err) {
+    console.err(err);
+  }
+
   const getMessages = function getMessages() {
     let count = 0;
 
