@@ -5,6 +5,19 @@ const webContents = remote.getCurrentWebContents();
 const { session } = webContents;
 
 module.exports = (Franz, config) => {
+
+  window.addEventListener("message", (event) => {
+    // little bit hacky things here.
+    // my solution is just to remove the hangout iframe
+    if (event.origin === 'https://hangouts.google.com') {
+      const elm = document.getElementById("gtn-roster-iframe-id");
+      if (elm) {
+        elm.remove();
+      }
+      return
+    }
+  }, false);
+
   try {
     (async () => {
       if (window.location.href.match(/https:\/\/www.google.com\/intl\/(.*)\/gmail\/about\//)) {
