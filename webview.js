@@ -7,7 +7,13 @@ const { session } = webContents;
 module.exports = (Franz, config) => {
 
   window.addEventListener("message", (event) => {
-    if (event.origin !== 'https://hangouts.google.com') {
+    // little bit hacky things here.
+    // my solution is just to remove the hangout iframe
+    if (event.origin === 'https://hangouts.google.com') {
+      const elm = document.getElementById("gtn-roster-iframe-id");
+      if (elm) {
+        elm.remove();
+      }
       return
     }
   }, false);
