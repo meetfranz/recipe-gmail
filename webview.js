@@ -5,6 +5,13 @@ const webContents = remote.getCurrentWebContents();
 const { session } = webContents;
 
 module.exports = (Franz, config) => {
+
+  window.addEventListener("message", (event) => {
+    if (event.origin !== 'https://hangouts.google.com') {
+      return
+    }
+  }, false);
+
   try {
     (async () => {
       if (window.location.href.match(/https:\/\/www.google.com\/intl\/(.*)\/gmail\/about\//)) {
