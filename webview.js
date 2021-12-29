@@ -1,23 +1,6 @@
-import { remote } from 'electron';
 import path from 'path';
 
-const webContents = remote.getCurrentWebContents();
-const { session } = webContents;
-
-module.exports = (Franz, config) => {
-  try {
-    (async () => {
-      if (window.location.href.match(/https:\/\/www.google.com\/intl\/(.*)\/gmail\/about\//)) {
-        session.flushStorageData();
-        session.clearStorageData();
-
-        window.location.href = config.url;
-      }
-    })();
-  } catch (err) {
-    console.err(err);
-  }
-
+module.exports = (Franz) => {
   const getMessages = function getMessages() {
     let count = 0;
 
@@ -27,11 +10,16 @@ module.exports = (Franz, config) => {
       }
     }
 
+    const chatCount = parseInt((document.querySelector('[data-tooltip="Chat"]') || '').ariaLabel.replace(/[^\d]/g, ''), 10) || 0;
+
+
     // Just incase we don't end up with a number, set it back to zero (parseInt can return NaN)
     count = parseInt(count, 10);
     if (isNaN(count)) {
       count = 0;
     }
+
+    count += chatCount;
 
     // set Franz badge
     Franz.setBadge(count);
