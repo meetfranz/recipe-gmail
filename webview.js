@@ -1,4 +1,6 @@
-import path from 'path';
+"use strict";
+
+const path = require('path');
 
 module.exports = (Franz) => {
   const getMessages = function getMessages() {
@@ -6,20 +8,22 @@ module.exports = (Franz) => {
 
     if (document.getElementsByClassName('J-Ke n0').length > 0) {
       if (document.getElementsByClassName('J-Ke n0')[0].getAttribute('aria-label') != null) {
-        count = parseInt(document.getElementsByClassName('J-Ke n0')[0].getAttribute('aria-label').replace(/[^0-9.]/g, ''), 10);
+        count = parseInt(document.getElementsByClassName('J-Ke n0')[0].getAttribute('aria-label').replace(/[^\d]/g, ''), 10);
+        if (isNaN(count)) {
+          count = 0;
+        }
       }
     }
 
-    const chatCount = parseInt((document.querySelector('[data-tooltip="Chat"]') || '').ariaLabel.replace(/[^\d]/g, ''), 10) || 0;
-
-
-    // Just incase we don't end up with a number, set it back to zero (parseInt can return NaN)
-    count = parseInt(count, 10);
-    if (isNaN(count)) {
-      count = 0;
+    if (document.querySelector('[data-tooltip="Chat"]')) {
+      if (document.querySelector('[data-tooltip="Chat"]').getAttribute('aria-label')){
+      	let chatCount = parseInt(document.querySelector('[data-tooltip="Chat"]').getAttribute('aria-label').replace(/[^\d]/g, ''), 10);
+      	if (isNaN(chatCount)) {
+          chatCount = 0;
+        }
+        count += chatCount;
+      }
     }
-
-    count += chatCount;
 
     // set Franz badge
     Franz.setBadge(count);
