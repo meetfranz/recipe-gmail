@@ -4,13 +4,18 @@ module.exports = (Franz) => {
   const getMessages = function getMessages() {
     let count = 0;
 
+    const elements = document.querySelectorAll('.bsU');
+    elements.forEach((el) => {
+      count += parseInt(el.textContent, 10);
+    });
+
     if (document.getElementsByClassName('J-Ke n0').length > 0) {
       if (document.getElementsByClassName('J-Ke n0')[0].getAttribute('aria-label') != null) {
-        count = parseInt(document.getElementsByClassName('J-Ke n0')[0].getAttribute('aria-label').replace(/[^0-9.]/g, ''), 10);
+        count = parseInt((document.getElementsByClassName('J-Ke n0')[0].getAttribute('aria-label') || '').replace(/[^0-9.]/g, ''), 10);
       }
     }
 
-    const chatCount = parseInt((document.querySelector('[data-tooltip="Chat"]') || '').ariaLabel.replace(/[^\d]/g, ''), 10) || 0;
+    const chatCount = parseInt(((document.querySelector('[data-tooltip="Chat"]') || '').ariaLabel || '').replace(/[^\d]/g, ''), 10) || 0;
 
 
     // Just incase we don't end up with a number, set it back to zero (parseInt can return NaN)
