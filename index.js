@@ -13,4 +13,19 @@ module.exports = Franz => class Gmail extends Franz {
     }];
   }
 
+  eventDidLoad(serviceBrowserView, event, url) {
+    this.userAgentHack(serviceBrowserView.webContents, url);
+  }
+
+  eventWillNavigate(serviceBrowserView, event, url) {
+    this.userAgentHack(serviceBrowserView.webContents, url);
+  }
+
+  userAgentHack(webContents, url) {
+    if (url.startsWith('https://accounts.google.com')) {
+      webContents.setUserAgent(this.mockUserAgent(true));
+    } else {
+      webContents.setUserAgent(this.mockUserAgent(false));
+    }
+  }
 };
