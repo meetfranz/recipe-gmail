@@ -1,5 +1,11 @@
 import path from 'path';
 
+if (window.trustedTypes && window.trustedTypes.createPolicy) {
+  window.trustedTypes.createPolicy('default', {
+    createHTML: (string, sink) => string
+  });
+}
+
 module.exports = (Franz) => {
   const getMessages = function getMessages() {
     let count = 0;
